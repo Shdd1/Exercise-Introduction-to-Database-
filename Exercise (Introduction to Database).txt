@@ -73,6 +73,10 @@ update countries set name='Adelaide' where code='3';
 
 DELETE FROM order_product WHERE product_id = 1;
 DELETE FROM  products WHERE id=1;
+DELETE FROM order_product WHERE product_id = 2;
+DELETE FROM  products WHERE id=2;
+DELETE FROM order_product WHERE product_id = 3;
+DELETE FROM  products WHERE id=3;
 
 
 

@@ -1,0 +1,78 @@
+create database store;
+create table countries(
+    code int primary key,
+    name varchar(20) unique ,
+    continent_name varchar(20) not null
+
+);
+
+create table users(
+    id int primary key  ,
+    full_name varchar(20) not null ,
+    email varchar(20) unique ,
+    gender char(1) check (gender='m' or gender='f' ) ,
+    date_of_brith varchar(15) not null ,
+    created_at datetime default CURRENT_TIMESTAMP ,
+    country_code int ,
+    foreign key(country_code)references countries(code)
+
+);
+
+create table orders(
+    id int primary key ,
+    user_id int,
+    foreign key (user_id)references users(id),
+    status varchar(6) check (status='start'or status='finish'),
+    created_at datetime default CURRENT_TIMESTAMP
+
+);
+create table order_product(
+    order_id int,
+    foreign key (order_id)references orders(id),
+     product_id int ,
+    foreign key (product_id)references products(id)  ,
+    quantity int default 0
+
+);
+create table products(
+    id int primary key ,
+    name varchar(10)not null ,
+    price int default 0,
+    status varchar(10) check ( status='valid' or status='expired' ) ,
+    created_at datetime default CURRENT_TIMESTAMP
+);
+
+#DML
+#1. Add new row to the countries table.
+insert into countries values (1,'KSA','Asia');
+insert into countries values (2,'Buenos Aires',' South America');
+insert into countries values (3,'Sydney','Australia');
+#2. Add new row to the users table.
+insert into users values (1,'Shahad Abudlrhman','shsh@gmail.com','f','2002/05/16','20240506',1);
+insert into users values (2,'Ahmad Abudlrhman','ahmad@gmail.com','m','2002/05/16','20240506',2);
+insert into users values (3,'Osama Abudlrhman','osama@gmail.com','m','2002/05/16','20240506',3);
+#3. Add new row to the orders table.
+insert into orders values (1,1,'start','20240304');
+insert into orders values (2,2,'start','20240304');
+insert into orders values (3,3,'start','20240304');
+#4. Add new row to the products table.
+insert into products values (1,'shampoo',200,'valid','20240304');
+insert into products values (2,'shampoo',150,'expired','20240304');
+insert into products values (3,'shampoo',90,'valid','20240304');
+#5. Add new row to the order_products table.
+insert into order_product values (1,1,200);
+insert into order_product values (2,2,200);
+insert into order_product values (3,3,200);
+
+#6.Update row from countries table.
+update countries set name='Jedahh' where code='1';
+update countries set name='Rio de Janeiro' where code='2';
+update countries set name='Adelaide' where code='3';
+
+#7.Delete row from products table.
+
+DELETE FROM order_product WHERE product_id = 1;
+DELETE FROM  products WHERE id=1;
+
+
+
